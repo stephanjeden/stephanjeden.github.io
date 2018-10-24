@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Dinner and Christmas Play</title>
+        <link rel="icon" href="https://i.pinimg.com/originals/cc/7b/8b/cc7b8b6133c154f09ac0c014bbe9371a.png">
+
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Dancing+Script">
+              
+        <style>
+
+            body {
+                margin: 0;
+            }
+
+
+            #contactinfo {
+                position: fixed;
+                background:#B91522;
+                width: 100vw;
+                height: 2vh;
+                z-index: 10;
+                font: 100 .7vw oswald;
+                padding-left: 10vw;
+                padding-top: .15vh;
+                color:#E5E5E5;
+                letter-spacing: .1vw;
+                box-shadow: 0 0 30px #0000005d;
+            }
+
+
+            #pagedivider {
+                display: flex;
+                background: #E5E5E5;
+            }
+
+
+            .sectionleft {
+                width: 54vw;
+            }
+
+            #bubble {
+                background-color: rgb(18, 18, 18);
+                top: -10vw;
+                left: -6vw;
+                width: 40vw;
+                height: 40vw;
+                border-radius: 50%;
+                position: absolute;
+                z-index: 1;
+                box-shadow: 0 0 30px #0000005d;
+            }
+
+            #invite {
+                color: white;
+                font-size: 4.5vw;
+                font-family: 'Dancing Script', cursive;
+                top: 21vw;
+                text-align: center;
+                left: 9.5vw;
+                font-style: italic;
+                position: absolute;
+            }
+
+
+            #stamp {
+
+                z-index: 1;
+                width: 11vw;
+                transform: rotate(-37deg);
+                top: 4.5vh;
+                left: 25vw;
+                position:absolute;
+            }
+
+            #maincontainer {
+                width: 100vw;
+                height: 17vw;
+            }
+
+            #header {
+                text-align:center;
+                margin: 6vh 3vw 0vh 0vw;
+
+            }
+
+            h2 {
+                font-family: 'Dancing Script', cursive;
+                font-size: 4vw;
+                color: #B91522;
+                font-weight: 900;
+            }
+
+            h3 {
+                font-size: 1.5vw;
+                color: #0E2123;
+                font-family: oswald;
+                font-weight: 100;
+                font-style: italic;
+            }
+
+            #title {
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+
+            #starringallens {
+                margin-bottom: 4vh;
+                margin-top: 0.5vh;
+                color:#B91522;
+                font-family: 'Dancing Script', cursive;
+                font-size: 2vw;
+                
+            }
+
+            #subtitle {
+                margin-top: 0;
+            }
+
+            #details {
+                background-image: url("https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+                margin: 0;
+                width: 100vw;
+                height: 141vh;
+                background-size: cover;
+                background-position: bottom;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #detailsflexbox {
+                display: flex;
+                background-color: rgba(0,0,0,.8);
+                width: 100vw;
+                /*height: 78vh;*/
+                box-shadow: 0 0 5vw black;
+                justify-content: space-around;
+            }
+
+            #show {
+                width: 30vw;
+            }
+
+            #restaurant {
+                width: 28vw;
+            }
+
+            #theinn {
+                height: 24vw;
+                margin-top: 2vh;
+                margin-left: 5vw;
+            }
+
+            #factory {
+                width: 27vw;
+                margin-top: 7vh;
+                box-shadow: 0 0 5vw black;
+                border-radius: 56%;
+            }
+
+            .detailSubHeaders {
+
+                font-family: Oswald;
+                font-style: italic;
+                color: white;
+                text-align: center;
+                font-size: 1.3vw;
+                font-weight: 100;
+            }
+
+            .detailparagraphs {
+                font-family: Oswald;
+                color: white;
+                text-align: center;
+                font-size: 1vw;
+                font-weight: 100;
+                margin-bottom: 2vw;
+            }
+
+
+            /* unvisited link */
+            a:link {
+                color: white;
+            }
+
+            
+
+            /* visited link */
+            a:visited {
+                color: rgb(151, 151, 151);
+            }
+
+            /* mouse over link */
+            a:hover {
+                color: rgb(37, 130, 0);
+            }
+
+            /* selected link */
+            a:active {
+                color: hotpink;
+            }
+
+
+            #tickets {
+                position: fixed;
+                padding: 10px;
+                top: 45vh;
+                right: 0;
+                background:#B91522;
+                border-radius: 4px;
+                transform: rotate(-90deg);
+                margin-right: -50px;
+                border: solid 3px white;
+                font-family: Oswald;
+                font-weight: 100;
+                padding-top: 8px;
+                padding-bottom: 10px;
+                font-size: 1.2em;
+            }
+
+            #rsvp {
+                position: fixed;
+                padding: 10px;
+                top: 59vh;
+                right: 0;
+                background:#B91522;
+                border-radius: 4px;
+                transform: rotate(-90deg);
+                margin-right: -13px;
+                border: solid 3px white;
+                font-family: Oswald;
+                font-weight: 100;
+                padding-top: 8px;
+                padding-bottom: 10px;
+                font-size: 1.2em;
+            }
+
+            #tickets:hover, #rsvp:hover {
+                background:rgba(185, 21, 35, 0.535);
+            }
+
+
+        </style>
+
+    </head>
+
+
+
+    <body>
+
+        <!--Contact Info at Top of Page-->
+
+        <div id="contactinfo" >Stephan Eden ~ 720.325.8169 ~ <a target="_blank" href="http://www.caryann.org/">stephanjeden@gmail.com</a></div>
+
+        
+
+        <!--Invitation Bubble and Header-->
+        <div id="pagedivider">
+
+            <div class="sectionleft">
+                <p>Hope you can make it!</p>
+
+
+                <div id="bubble">
+                    <h1 id="invite">You're Invited!</h1>
+
+                </div>
+
+
+                <!--Stamp-->
+
+                <img id="stamp" src="https://i.pinimg.com/originals/cc/7b/8b/cc7b8b6133c154f09ac0c014bbe9371a.png">
+
+            </div>
+
+
+
+
+
+
+            <!--Invitation Header-->
+
+            <div id="maincontainer">
+
+                <div id="header">
+                    <h2 id="title">Dinner and Christmas Play</h2>
+                    <h3 id="starringallens">Starring the Allen Children</h3>
+                    <h3 id="subtitle">Saturday, December 8th at 4:45 PM ~ Play to begin at 7:00 PM</h3>
+                </div>
+
+            </div>
+        </div>
+
+        <!--Buy Tickets and RSVP-->
+
+        <a target="_blank" href="http://www.caryann.org"> <div id="tickets">
+
+           Purchase Tickets
+
+
+        </div>
+    </a>
+
+
+    <a target="_blank" href="mailto:stephanjeden@gmail.com">
+        <div id="rsvp">
+
+            RSVP
+
+        </div>
+    </a>
+
+
+
+        <!--Invitation Details-->
+        <div id="details">
+            <!-- <img id="backgroundimage" src="https://images.pexels.com/photos/730256/pexels-photo-730256.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" > -->
+
+            <div id="detailsflexbox">
+
+                <div id="restaurant">
+
+                    <img id="factory" src="https://lh3.ggpht.com/p/AF1QipN_p8wOOmmV0Vlk0FHWft5K4L83kDz6X4kxEw4b=s1536">
+                    <br>
+                    <div>
+                        <h4 class="detailSubHeaders">Dinner at the Spaghetti Factory ~ 4:45 PM <br> 9145 Sheridan Boulevard, Westminster, CO 80031</h4>
+                        <p class="detailparagraphs">
+                            We'll begin the evening with a lovely, yet affordable, dinner at the Old Spaghetti Factory.
+                            You can check out their menu at <a href="https://www.osf.com/pdf/menus/Westminster.pdf">theSpaghettiFactory.com</a>
+                        </p>
+
+                    </div>
+                </div>
+
+                <div id="show">
+                   <a target="_blank" href="http://www.caryann.org"> <img id="theinn" src="https://isitephotos.com/wp-content/uploads/2018/07/inn-logo-online-colors.png"></a>
+
+                    <div>
+                        <h4 class="detailSubHeaders">
+                            "The Inn" by CaryAnn Productions ~ 7:00 PM <br> Skyview Academy Auditorium <br>
+                            8990 York Street, Thorton, CO 80229
+                        </h4>
+
+                        <p class="detailparagraphs">
+                            At around 6:30, we'll take an about 15 minute drive over to the Skyview Auditorium,
+                            where we'll enjoy an exciting and comical play produced by CaryAnn Productions and starring
+                            all of the Allen children, whom many of you know, as well as many other Christian youth from the Denver area.
+                            I had the pleasure of attending this show once before on a previous year, and I was very impressed.
+                            If you'd like to find out more or purchase tickets, head over to <a href="http://caryann.org/index.html">CaryAnn.org</a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
