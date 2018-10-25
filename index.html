@@ -8,12 +8,18 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Dancing+Script">
 
+        <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400" rel="stylesheet">
+
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
               
         <style>
 
             body {
                 margin: 0;
+            }
+
+            p {
+                letter-spacing: 2px;
             }
 
 
@@ -98,7 +104,7 @@
                 font-size: 1.5vw;
                 color: #0E2123;
                 font-family: oswald;
-                font-weight: 100;
+                font-weight: 200;
                 font-style: italic;
             }
 
@@ -169,7 +175,7 @@
                 color: white;
                 text-align: center;
                 font-size: 1.3vw;
-                font-weight: 100;
+                font-weight: 200;
             }
 
             .detailparagraphs {
@@ -177,7 +183,7 @@
                 color: white;
                 text-align: center;
                 font-size: 1vw;
-                font-weight: 100;
+                font-weight: 200;
                 margin-bottom: 2vw;
             }
 
@@ -203,7 +209,15 @@
             a:active {
                 color: hotpink;
             }
+            
 
+            #ticketsrsvp {
+                position: fixed;
+                right: 0;
+                top: 30vh;
+                padding 0;
+                margin: 0;
+            }
 
             #tickets {
                 position: fixed;
@@ -213,30 +227,27 @@
                 background:#B91522;
                 border-radius: 4px;
                 transform: rotate(-90deg);
-                margin-right: -50px;
+                margin-right: -58px;
                 border: solid 3px white;
                 font-family: Oswald;
-                font-weight: 100;
+                font-weight: 200;
                 padding-top: 8px;
                 padding-bottom: 10px;
                 font-size: 1.2em;
             }
 
             #rsvp {
-                position: fixed;
-                padding: 10px;
-                top: 59vh;
-                right: 0;
                 background:#B91522;
                 border-radius: 4px;
-                transform: rotate(-90deg);
-                margin-right: -13px;
+                margin-right: -17px;
                 border: solid 3px white;
+                transform: rotate(-90deg);
                 font-family: Oswald;
-                font-weight: 100;
-                padding-top: 8px;
-                padding-bottom: 10px;
+                font-weight: 200;
                 font-size: 1.2em;
+                padding: 10px 10px 10px 10px;
+                text-decoration: none;
+                
             }
 
             #tickets:hover, #rsvp:hover {
@@ -349,23 +360,24 @@
 
         <!--Buy Tickets and RSVP-->
 
-        <a target="_blank" href="http://www.caryann.org"> <div id="tickets">
+        <div id="ticketsrsvp">
+                <a target="_blank" href="http://www.caryann.org"> <div id="tickets">
 
-           Purchase Tickets
+                Purchase Tickets
 
 
+                </div>
+            </a>
+
+
+            <a target="_blank" href="mailto:stephanjeden@gmail.com">
+                <div id="rsvp">
+
+                    RSVP
+
+                </div>
+            </a>
         </div>
-    </a>
-
-
-    <a target="_blank" href="mailto:stephanjeden@gmail.com">
-        <div id="rsvp">
-
-            RSVP
-
-        </div>
-    </a>
-
 
 
         <!--Invitation Details-->
