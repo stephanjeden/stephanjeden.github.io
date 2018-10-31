@@ -27,11 +27,11 @@
                 position: fixed;
                 background:#B91522;
                 width: 100vw;
-                height: 2vh;
+                height: 20px;
                 z-index: 10;
-                font: 100 .7vw oswald;
+                font: 100 11px oswald;
                 padding-left: 10vw;
-                padding-top: .15vh;
+                padding-top: 4px;
                 color:#E5E5E5;
                 letter-spacing: .1vw;
                 box-shadow: 0 0 30px #0000005d;
@@ -57,7 +57,7 @@
                 border-radius: 50%;
                 position: absolute;
                 z-index: 1;
-                box-shadow: 0 0 30px #0000005d;
+                box-shadow: 0 0 30px rgb(0, 0, 0);
             }
 
             #invite {
@@ -89,7 +89,7 @@
 
             #header {
                 text-align:center;
-                margin: 6vh 3vw 0vh 0vw;
+                margin: 5.5vh 3vw 0vh 0vw;
 
             }
 
@@ -114,7 +114,7 @@
             }
 
             #starringallens {
-                margin-bottom: 1vw;
+                margin-bottom: .9vw;
                 margin-top: 0.5vh;
                 color:#B91522;
                 font-family: 'Dancing Script', cursive;
@@ -140,10 +140,10 @@
 
             #detailsflexbox {
                 display: flex;
-                background-color: rgba(0,0,0,.8);
+                background-color: rgba(0, 0, 0, 0.945);
                 width: 100vw;
                 /*height: 78vh;*/
-                box-shadow: 0 0 5vw black;
+                box-shadow: 0 0 40px black;
                 justify-content: space-around;
             }
 
@@ -202,7 +202,7 @@
 
             /* mouse over link */
             a:hover {
-                color: rgb(37, 130, 0);
+                color: rgb(0, 255, 115);
             }
 
             /* selected link */
@@ -211,47 +211,53 @@
             }
             
 
-            #ticketsrsvp {
+            #ticketsrsvp {    
                 position: fixed;
-                right: 0;
-                top: 30vh;
-                padding 0;
+                right: -109px;
+                top: 50vh;
+                padding 0: ;
                 margin: 0;
+                display: flex;
+                transform: rotate(-90deg);
             }
 
             #tickets {
-                position: fixed;
-                padding: 10px;
-                top: 45vh;
-                right: 0;
-                background:#B91522;
+                background: #B91522;
                 border-radius: 4px;
-                transform: rotate(-90deg);
-                margin-right: -58px;
+                margin: 0px 0px 0px 1px;
                 border: solid 3px white;
                 font-family: Oswald;
                 font-weight: 200;
-                padding-top: 8px;
-                padding-bottom: 10px;
                 font-size: 1.2em;
+                padding: 7px 10px 7px 10px;
+                text-align: center;
+                float: right;
+                border-bottom: none;
+                border-bottom-left-radius: unset;
+                border-bottom-right-radius: unset;
             }
 
             #rsvp {
-                background:#B91522;
+                background: #B91522;
                 border-radius: 4px;
-                margin-right: -17px;
+                margin-left: 50px;
                 border: solid 3px white;
-                transform: rotate(-90deg);
                 font-family: Oswald;
                 font-weight: 200;
                 font-size: 1.2em;
-                padding: 10px 10px 10px 10px;
-                text-decoration: none;
+                padding: 7px 10px 7px 10px;
+                width: 52px;
+                text-align: center;
+                border-bottom: none;
+                border-bottom-right-radius: unset;
+                border-bottom-left-radius: unset;
+                float: right;
                 
             }
 
             #tickets:hover, #rsvp:hover {
-                background:rgba(185, 21, 35, 0.535);
+                background:rgb(172, 94, 100);
+                transition: .5s;
             }
 
             @media only screen and (max-width:900px) {
@@ -301,6 +307,32 @@
                     margin: 0;
                     padding: 3vw 0 1vw 0;
 
+
+                }
+
+                #details {
+                    
+                    padding-top: 54vw;
+                    padding-bottom: 54vw;
+                }
+
+                #detailsflexbox {
+                    flex-direction: column;
+                    align-items: center;
+                    margin-top: 2vh;
+                }
+
+                #restaurant {
+                    text-align: center;
+                    width: 82vw;
+                }
+
+                #factory {
+                    width: 53vw;
+                }
+
+                .detailSubHeaders {
+                    font-size: 3.3vw;
                 }
 
 
@@ -325,7 +357,7 @@
         <div id="pagedivider">
 
             <div class="sectionleft">
-                <p>Hope you can make it!</p>
+                <p style="visibility: hidden; height: 0;">Hope you can make it!</p>
 
 
                 <div id="bubble">
@@ -361,7 +393,7 @@
         <!--Buy Tickets and RSVP-->
 
         <div id="ticketsrsvp">
-                <a target="_blank" href="http://www.caryann.org"> <div id="tickets">
+                <a target="_blank" href="http://www.caryann.org"> <div id="tickets" style="text-decoration: none !important;" >
 
                 Purchase Tickets
 
@@ -370,7 +402,7 @@
             </a>
 
 
-            <a target="_blank" href="mailto:stephanjeden@gmail.com">
+            <a target="_blank" href="mailto:stephanjeden@gmail.com" style="text-decoration: none !important;">
                 <div id="rsvp">
 
                     RSVP
