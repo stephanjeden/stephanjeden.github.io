@@ -1,0 +1,63 @@
+@media (min-width: 768px) {
+
+    .container1 {
+        display: flex;
+    }
+
+    .container2 {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+}
+
+
+
+
+.container3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.container1 div, .container2 div, .container3 div {
+    border: 1px #ccc solid;
+    padding: 10px;
+}
+
+
+
+.box1 {
+    flex: 2;
+    order: 2;
+}
+
+
+.box2 {
+flex: 1;
+order: 1;
+}
+
+.box3 {
+flex: 1;
+order:3;
+
+}
+
+
+
+
+.box {
+    flex-basis: 20%;
+}
+
+.boxen {
+    flex-basis: 3vw;
+}
