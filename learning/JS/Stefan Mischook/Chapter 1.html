@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Stefan Mischook JS Tutorial, Ch. 1</title>
+
+    <style>
+    
+   #whatonearth {
+    transition: .5s ease-out;
+    margin: 100px 0px; box-shadow: 5px 5px 23px #00000069; color: #efefef; font-size: 25px; padding: 30px 20px; text-align: center; background: rgba(0, 0, 139, 0.521); border-radius: 10px; border: none;
+   }
+
+    #whatonearth:hover {
+
+        font-size: 28px !important;
+        background-color: rgba(0, 0, 139, 0.412) !important;
+
+
+    }
+    
+    </style>
+
+<script>
+
+    function callonload() {
+
+      prompt("Complete load of page? " + new Date() );
+
+    }
+
+
+
+    function whateverIVeryWellPlease(whateverISaywhenICallthis) {
+      
+      alert("How many times do you need to be told? " + whateverISaywhenICallthis);
+    }
+
+    console.log(whateverIVeryWellPlease);
+
+  </script>
+
+  </head>
+  <body
+  onload="callonload()"
+  >
+    
+
+    <div style="margin: auto; width: 50vw; text-align: center; ">
+    <button id="whatonearth"  onclick="whateverIVeryWellPlease('This is what I say.')" >This is the most amazing button.</button>
+    </div>
+
+  </body>
+</html>

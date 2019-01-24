@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+    
+    * {
+        margin:0;
+        padding:0;
+    }
+
+    header {
+        margin:0 0 10px 0px;
+        background: #f4f4f4;
+        text-align: center;
+        display: 
+    }
+
+    header h1 {
+        padding: 13px 0 10px 0;
+        font:100 2em Oswald;
+        
+    }
+
+
+    body div button {
+        padding: 10px 30vw; 
+        border: 0px solid rgba(94, 94, 94, 0); 
+        background: #a0d5d8; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.304); 
+        text-transform:uppercase; 
+        font-family: Oswald; 
+        font-weight: 100; 
+        margin-top: 100px;
+        font-size: 14px;
+        transition: .5s;
+    }
+
+    body div button:hover {
+        background: #a0d5d8ba;
+        border: 1.3px solid rgba(255, 255, 255, 0);
+        font-weight:300;
+    }
+
+    body div {
+        text-align: center;
+    }
+    
+    </style>
+</head>
+<body id="thebody">
+    
+    <header>
+
+       <h1 
+       id="sweetness"
+       >The Big, Bad Wolf</h1> 
+
+    </header>
+
+
+
+
+    <div>
+
+        <form action="">
+
+            <div>
+                <label for="firstName">First Name</label>
+                <input type="text" name="firstName" id="firstName" />
+            </div>
+
+            <div>
+                <label for="lastName">Last Name</label>
+                <input type="text" name="lastName" id="lastName" />
+            </div>
+
+            <div>
+                <label for="">Background</label>
+                <select name="background" id="background" onchange="chameleon(this)">
+                
+                    <option value="#fff">  </option>
+                    <option value="#f9d9d1"> Red </option>
+                    <option value="#add1c6"> Green </option>
+                    <option value="#c9d4e5"> Blue </option>
+                
+                </select>
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+    <div class="btnDiv">
+
+        <button 
+        onclick="morph()"
+        ondblclick="unmorph()"
+        >
+            What does the wolf say?
+        </button>
+
+    </div>
+
+
+
+    <script>
+
+    // Background Changer Form
+
+    function chameleon(mySpider){
+        console.log(mySpider.value);
+        var myPrettyVar = document.getElementById('thebody');
+        myPrettyVar.style.backgroundColor = mySpider.value;
+    }
+    
+    // Constructor Pattern
+
+    function Fruit(name, color, shape, cookTime, bakeTemp, texture) {
+        this.name = name;
+        this.color = color;
+        this.shape = shape;
+        this.cookTime = cookTime;
+        this.bakeTemp = bakeTemp;
+        this.texture = texture;
+
+        this.describe = function(){
+            return 'My '+this.name+' is '+this.color+' in color and '+this.shape+' in shape.';
+        }
+
+        this.cook = function(){
+            return 'Making '+this.name+' requires about '+this.cookTime+' to prepare at '+this.bakeTemp+'. The texture should be '+this.texture+'.';
+        }
+    }
+
+    var applePie = new Fruit('apple pie', 'red', 'round', '60 minutes', '350º', 'soft with slight crispness');
+    var orangeMeringue = new Fruit('orange meringue', 'orange', 'round', '30 minutes', '400º', 'soft and as though it melts in your mouth');
+    var bananaPudding = new Fruit('banana pudding', 'yellow', 'tubular', '25 minutes', 'room temperature', 'smooth and creamy');
+
+
+    console.log(applePie.cook());
+
+    // Object Arrays
+
+    var users = [
+        {
+            name: 'John Doe',
+            age: 30
+        },
+        {
+            name: 'Mark Doe',
+            age: 32
+        },
+        {
+            name: 'Lilly Doe',
+            age: 35
+        },
+    ];
+
+    console.log(users[1].name)
+    
+    //Button
+
+    function doClick(){
+        alert('Button Click Acknowledged');
+    }
+
+    function morph(){
+        var YoDude = document.getElementById('sweetness');
+        YoDude.innerHTML = '"Whasup Bruh? It\'s '+Date()+'."';
+    }
+
+    function unmorph(){
+        var shrednar = document.getElementById('sweetness');
+        shrednar.innerHTML = 'The Big, Bad Wolf';
+    }
+
+    </script>
+
+
+</body>
+</html>

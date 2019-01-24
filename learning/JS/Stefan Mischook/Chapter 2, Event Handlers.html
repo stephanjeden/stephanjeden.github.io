@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Stefan Mischook JS Tutorial, Ch. 2 - Event Handlers</title>
+
+    <style>
+      #whatonearth {
+        transition: 0.5s ease-out;
+        margin: 100px 0px;
+        box-shadow: 5px 5px 23px #00000069;
+        color: #efefef;
+        font-size: 25px;
+        padding: 30px 20px;
+        text-align: center;
+        background: rgb(66, 49, 181);
+        border-radius: 10px;
+        border: none;
+        font-family: oswald;
+        font-weight: 100;
+        letter-spacing: 0.1rem;
+      }
+
+      #whatonearth:hover {
+        font-size: 28px !important;
+        background-color: rgba(0, 0, 139, 0.297) !important;
+        color: rgb(59, 41, 173);
+      }
+    </style>
+
+    <script></script>
+  </head>
+
+  <body id="thisisthebody" >
+    <div style="margin: auto; width: 50vw; text-align: center; ">
+      <button id="whatonearth">This is the most amazing button.</button>
+    </div>
+
+    <script>
+      
+      // Anonymous inner function examples.
+
+      document.getElementById("whatonearth").onclick = function() {
+        youChangedSomethingInYourPage(
+          "You did not change your page, actually. You just activated the youChangedSomethingInYourPage function by clicking the button which basically calls a function completely irrelevant to itself."
+        );
+      };
+
+      document.getElementsByTagName("body")[0].onkeypress = function() {
+        youChangedSomethingInYourPage(
+          "You just pressed a key, duh!!"
+        );
+      };
+
+      document.getElementsByTagName("body")[0].onresize = function() {
+        youChangedSomethingInYourPage(
+          "You just resized your window, duh!!"
+        );
+      };
+      
+
+      // Decided to consolidate all the JS to the bottom of the page.
+
+      function youChangedSomethingInYourPage(youchangedWhateverItIsYouChanged) {
+        console.log(
+          "What do you think just happened? " + youchangedWhateverItIsYouChanged
+        );
+      }
+    </script>
+  </body>
+</html>
