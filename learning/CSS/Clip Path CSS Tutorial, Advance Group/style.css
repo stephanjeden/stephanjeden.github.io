@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+    font-weight: 300;
+    color: #e1a57b;
+}
+
+header {
+    padding: 40vh 25vmin 25vmin 25vmin;
+    text-align: center;
+    height: 95vh;
+    background-image: linear-gradient(
+        to right bottom,
+        #cfb09a93, 
+        #7bb0e183),
+    url(elephant.jpg);
+    background-size: cover;
+    background-position: bottom;
+    clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%);
+}
+
+header h1 {
+    font-size: 9vmin;
+}
