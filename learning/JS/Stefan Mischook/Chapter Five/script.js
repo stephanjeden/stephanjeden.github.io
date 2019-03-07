@@ -52,3 +52,32 @@
     }
 
 
+    // Here, we're learning form validation! We create two variables, one with an example email address (could be anything, like a phone number), and then we'll create a variable that will run the indexOf function. Then we run the console.log function so that we can see, in our browser's console, whether our code worked.
+
+    var someEmailAddress = "stephanjeden@gmail.com";
+    var checkSomeEmailAddress = "The index is " + someEmailAddress.indexOf("@");
+
+    console.log(checkSomeEmailAddress);
+
+
+    // Here, we'll use the isNaN built in method to confirm (or deny) that a given input is a number.
+
+    var someDataThatIsEitherANumberOrAString = "This is a string, so the isNaN method will return with the message 'true'";
+
+    var useIsNaNToCheckOurVariableAbove = isNaN(someDataThatIsEitherANumberOrAString);
+
+    console.log(useIsNaNToCheckOurVariableAbove);
+
+
+    // Yay! First "if" statement!!!
+
+    if(5<4)
+    {
+        console.log("Yes, 1 is less than 4, dummy.");
+    }
+    else {
+        console.log("No, dufas, 4 is not 5.");
+    }
+
+
+
