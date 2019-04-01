@@ -9,6 +9,8 @@
     <style>
      * {
          background-color: #333;
+         margin: 0;
+         padding:0;
      }
  
 
@@ -16,34 +18,71 @@
 </head>
 <body>
     
-    <canvas width="2000" height="1000" id="theCanvas"  style= "background-color: rgb(0, 0, 0);">
+    <canvas width="3000" height="1000" id="theCanvas"  style= "background-color: rgb(0, 0, 0);">
 
 
     </canvas>
 
+    <div id="target" style="color:white; text-align:center;  font-family:oswald;"></div>
 
 
 
 
-</body>
 
-
+</body> 
+ 
+ 
 <script>
 
-for(var pickMe=0; pickMe<2000; pickMe++) {
+
+
+// function myStarrySky() {
+
+//     var howManyStars = 20000;
+
+//     while(howManyStars > 0) {
+//         var jsCanvas = document.getElementById("theCanvas");
+//         var ctx = jsCanvas.getContext("2d");
+//         ctx.beginPath();
+//         // ctx.arc(100, 75, 300, 0, 2 * Math.PI); 
+//         ctx.arc( ((Math.random() * 1400) + 1), ((Math.random() * 700) + 1), ((Math.random() * .05) + .5), 0, 2 * Math.PI);
+//         ctx.fillStyle = "#f4f4f4";  
+//         ctx.fill(); 
+ 
+//         howManyStars = howManyStars - 1;
+
+//     }
+
+// }  
+
+// window.onload(myStarrySky());
+ 
+
+for(var pickMe=0; pickMe<20000; pickMe++) {
     var jsCanvas = document.getElementById("theCanvas");
     var ctx = jsCanvas.getContext("2d");
     ctx.beginPath();
-    // ctx.arc(100, 75, 300, 0, 2 * Math.PI); 
-    ctx.arc( ((Math.random() * 1400) + 1), ((Math.random() * 700) + 1), ((Math.random() * .5) + 1), 0, 2 * Math.PI);
+    ctx.arc( ((Math.random() * 2000) + 1), ((Math.random() * 1000) + 1), ((Math.random() * .5) + .2), 0, 2 * Math.PI);
     ctx.fillStyle = "#f4f4f4";  
     ctx.fill(); 
  }  
-
+ 
      
+function spinTheWheel() {
+    var loopCount = 5;
+
+    while(loopCount > 0) {
+        var target = document.getElementById("target");
+        target.innerHTML = "LoopCount: " + loopCount + "<br>" + target.innerHTML;
+        console.log("LoopCount is now: " + loopCount);
+        loopCount = loopCount - 1;
+    }
+}
+
+window.onload(spinTheWheel())
    
-  
+  alert(target);
 </script> 
  
-  
-</html>  
+   
+</html>    
