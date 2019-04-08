@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chapter 9, More Functions</title>
+
+    <style>
+     * {
+         
+         margin: 0;
+         padding:0;
+     }
+
+     .turnRed {
+
+        height: 25vh;
+     }
+     
+     #one {
+         background-color:rgb(221, 238, 253);
+     }
+
+     #two {
+         background-color:bisque;
+     }
+
+     #three {
+         background-color:aquamarine;
+     }
+
+     #four {
+         background-color:rgb(249, 187, 235);
+     }
+ 
+
+    </style> 
+</head>
+<body>
+
+    <div id="one" class="turnRed"></div>
+    <div id="two" class="turnRed"></div>
+    <div id="three" class="turnRed"></div>
+    <div id="four" class="turnRed"></div>
+
+
+
+
+
+</body> 
+ 
+ 
+<script>
+
+
+// function redify(myElement) {
+//     (myElement).style.background = "red";
+// }
+
+// document.getElementById("one").onclick = function () {
+//     redify(this);
+// }
+
+// document.getElementById("two").onclick = function () {
+//     redify(this);
+// }
+
+// document.getElementById("three").onclick = function () {
+//     redify(this);
+// }
+
+// document.getElementById("four").onclick = function () {
+//     redify(this);
+// }
+
+
+var origBox = document.getElementById("one");
+var origBoxColor = window.getComputedStyle(origBox, null).getPropertyValue("background-color");
+
+
+
+
+// Cleanest way I can think of accomplishing the task of changing each box's color when clicked:
+
+var coloredBox = document.getElementsByClassName("turnRed");
+
+for (var i=0; i<coloredBox.length; i++) { 
+   coloredBox[i].onclick = function() {
+       this.style.background = "red";
+   }
+}
+
+console.log(origBoxColor);
+
+  
+   
+
+</script> 
+ 
+   
+</html>    
