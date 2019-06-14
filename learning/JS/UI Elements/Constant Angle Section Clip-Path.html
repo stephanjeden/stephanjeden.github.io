@@ -1,179 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
 
-  <style>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-    * {
-      margin: 0;
-      padding: 0;
-    }
+      body {
+        background-color: rgb(161, 161, 161);
+        color: #efefef;
+        text-align: center;
+      }
 
-    body {
-      background-color:rgb(161, 161, 161);
-      color: #efefef;
-      text-align: center;
-    }
+      h1 {
+        font-size: 4vmin;
+        font-family: oswald;
+        font-weight: 100;
+        letter-spacing: 0.15vmin;
+      }
 
-    h1 {
-      font-size: 4vmin; 
-      font-family: oswald;
-      font-weight: 100; 
-      letter-spacing: .15vmin;
-    } 
-  
-    #upperBox {
-      box-sizing: content-box;
-      height: 250px;
-      background-color:rgb(6, 60, 125);
-      display: flex; 
-      align-items: center;
-      justify-content: center;
-    }
+      #upperBox {
+        box-sizing: content-box;
+        height: 250px;
+        background-color: rgb(6, 60, 125);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    #rightSlantedBox {
-      box-sizing: content-box;
-      height: 30vw; 
-      background-color:rgb(231, 112, 145);
-      display: flex;
-      align-items: center; 
-      justify-content: center;
-    }
+      #rightSlantedBox {
+        box-sizing: content-box;
+        height: 30vw;
+        background-color: rgb(231, 112, 145);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    #boxBelow { 
-      box-sizing: content-box;
-      height: 250px; 
-      background-color:rgb(56, 198, 191);
-      display: flex; 
-      align-items: center;
-      justify-content: center;
-    }
-  
-  
-  </style>
-</head>
+      #boxBelow {
+        box-sizing: content-box;
+        height: 250px;
+        background-color: rgb(56, 198, 191);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
 
-
-<body>
-  
-
-  <div id="upperBox">
-
-    <h1 style="text-align:center; color: #efefef">Upper Box</h1>
-
-  </div>
-
-  <div id="rightSlantedBox" class="rightSlantedBox" >
-
-    <h1 style="text-align:center; color: #efefef">Tilted Box</h1>
-
-  </div>
-
-  <div id="leftSlantedBox" class="leftSlantedBox" >
-
-      <h1 style="text-align:center; color: #efefef">Tilted Box</h1>
-  
+  <body>
+    <div id="upperBox">
+      <h1 style="text-align:center; color: #efefef">Upper Box</h1>
     </div>
 
-  <div id="boxBelow" class="boxBelow">
+    <div id="rightSlantedBox" class="rightSlantedBox">
+      <h1 style="text-align:center; color: #efefef">Tilted Box</h1>
+    </div>
 
-    <h1 style="text-align:center; color: #efefef">Lower Box</h1>
+    <div id="leftSlantedBox" class="leftSlantedBox">
+      <h1 style="text-align:center; color: #efefef">Tilted Box</h1>
+    </div>
 
-  </div>
+    <div id="boxBelow" class="boxBelow">
+      <h1 style="text-align:center; color: #efefef">Lower Box</h1>
+    </div>
 
-  <h1 style="margin-top:10vh">Background Color</h1> 
+    <h1 style="margin-top:10vh">Background Color</h1>
+  </body>
 
-</body>
+  <script>
+    // document.getElementById("boxBelow").style.position = "inherit";
 
+    var boxBelow = document.querySelectorAll(".boxBelow");
 
-<script>
+    for (var i = 0; i < boxBelow.length; i++) {
+      boxBelow[i].style.position = "inherit";
+    }
 
+    // Right Slanted Box 1
 
-// document.getElementById("boxBelow").style.position = "inherit";
+    var rightSlantedBox = document.getElementById("rightSlantedBox");
+    var rightSlantedBoxStyles = window.getComputedStyle
+      ? getComputedStyle(rightSlantedBox, null)
+      : rightSlantedBox.currentStyle;
+    var rightSlantedBoxHeight = rightSlantedBoxStyles.height;
+    var rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
+    var clipPathAlgorithm =
+      "polygon(0 0, 100% 40px, 100% 100%, 0 " +
+      (rightSlantedBoxParsedHeightValue - 40) +
+      "px)";
 
-var boxBelow = document.querySelectorAll(".boxBelow");
+    rightSlantedBox.style.clipPath = clipPathAlgorithm;
+    rightSlantedBox.style.position = "initial";
+    rightSlantedBox.style.marginBottom = "-7vh";
+    rightSlantedBox.style.marginTop = "-7vh";
 
-for (var i = 0; i < boxBelow.length; i++) {
-	boxBelow[i].style.position = "inherit";
-}
+    window.addEventListener("resize", function() {
+      rightSlantedBox = document.getElementById("rightSlantedBox");
+    });
 
-  // Right Slanted Box 1
+    window.addEventListener("resize", function() {
+      rightSlantedBoxStyles = window.getComputedStyle
+        ? getComputedStyle(rightSlantedBox, null)
+        : rightSlantedBox.currentStyle;
+    });
 
-  var rightSlantedBox = document.getElementById("rightSlantedBox");
-  var rightSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(rightSlantedBox, null) : rightSlantedBox.currentStyle;
-  var rightSlantedBoxHeight = rightSlantedBoxStyles.height;
-  var rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
-  var clipPathAlgorithm = "polygon(0 0, 100% 40px, 100% 100%, 0 " + (rightSlantedBoxParsedHeightValue - 40) + "px)";
-  
-  rightSlantedBox.style.clipPath = (clipPathAlgorithm);
-  rightSlantedBox.style.position = "initial";
-  rightSlantedBox.style.marginBottom = "-7vh";
-  rightSlantedBox.style.marginTop = "-7vh";
-  
-  
-  window.addEventListener("resize",function(){ rightSlantedBox = document.getElementById("rightSlantedBox"); })
+    window.addEventListener("resize", function() {
+      rightSlantedBoxHeight = rightSlantedBoxStyles.height;
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(rightSlantedBox, null) : rightSlantedBox.currentStyle; })
+    window.addEventListener("resize", function() {
+      rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxHeight = rightSlantedBoxStyles.height; })
+    window.addEventListener("resize", function() {
+      rightSlantedBox.style.clipPath =
+        "polygon(0 0, 100% 40px, 100% 100%, 0 " +
+        (rightSlantedBoxParsedHeightValue - 40) +
+        "px)";
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight); })
+    // Left Slanted Box
 
-  window.addEventListener("resize",function(){ rightSlantedBox.style.clipPath = "polygon(0 0, 100% 40px, 100% 100%, 0 " + (rightSlantedBoxParsedHeightValue - 40) + "px)"; })
+    var leftSlantedBox = document.getElementById("leftSlantedBox");
+    var leftSlantedBoxStyles = window.getComputedStyle
+      ? getComputedStyle(leftSlantedBox, null)
+      : leftSlantedBox.currentStyle;
+    var leftSlantedBoxHeight = leftSlantedBoxStyles.height;
+    var leftSlantedBoxParsedHeightValue = parseInt(leftSlantedBoxHeight);
+    var clipPathAlgorithm =
+      "polygon(0 40px, 100% 0, 100% " +
+      (leftSlantedBoxParsedHeightValue - 40) +
+      "px, 0 100%)";
 
-  // Left Slanted Box
+    leftSlantedBox.style.clipPath = clipPathAlgorithm;
+    leftSlantedBox.style.position = "initial";
+    leftSlantedBox.style.marginBottom = "-7vh";
+    leftSlantedBox.style.marginTop = "-7vh";
 
-  var leftSlantedBox = document.getElementById("leftSlantedBox");
-  var leftSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(leftSlantedBox, null) : leftSlantedBox.currentStyle;
-  var leftSlantedBoxHeight = leftSlantedBoxStyles.height;
-  var leftSlantedBoxParsedHeightValue = parseInt(leftSlantedBoxHeight);
-  var clipPathAlgorithm = "polygon(0 40px, 100% 0, 100% " + (leftSlantedBoxParsedHeightValue - 40) + "px, 0 100%)";
+    window.addEventListener("resize", function() {
+      leftSlantedBox = document.getElementById("leftSlantedBox");
+    });
 
-  leftSlantedBox.style.clipPath = (clipPathAlgorithm);
-  leftSlantedBox.style.position = "initial";
-  leftSlantedBox.style.marginBottom = "-7vh";
-  leftSlantedBox.style.marginTop = "-7vh";
-  
-  
-  window.addEventListener("resize",function(){ leftSlantedBox = document.getElementById("leftSlantedBox"); })
+    window.addEventListener("resize", function() {
+      leftSlantedBoxStyles = window.getComputedStyle
+        ? getComputedStyle(leftSlantedBox, null)
+        : leftSlantedBox.currentStyle;
+    });
 
-  window.addEventListener("resize",function(){ leftSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(leftSlantedBox, null) : leftSlantedBox.currentStyle; })
+    window.addEventListener("resize", function() {
+      leftSlantedBoxHeight = leftSlantedBoxStyles.height;
+    });
 
-  window.addEventListener("resize",function(){ leftSlantedBoxHeight = leftSlantedBoxStyles.height; })
+    window.addEventListener("resize", function() {
+      leftSlantedBoxParsedHeightValue = parseInt(leftSlantedBoxHeight);
+    });
 
-  window.addEventListener("resize",function(){ leftSlantedBoxParsedHeightValue = parseInt(leftSlantedBoxHeight); })
+    window.addEventListener("resize", function() {
+      leftSlantedBox.style.clipPath =
+        "polygon(0 40px, 100% 0, 100% " +
+        (leftSlantedBoxParsedHeightValue - 40) +
+        "px, 0 100%)";
+    });
 
-  window.addEventListener("resize",function(){ leftSlantedBox.style.clipPath = "polygon(0 40px, 100% 0, 100% " + (leftSlantedBoxParsedHeightValue - 40) + "px, 0 100%)"; })
+    // Right Slanted Box
 
+    var rightSlantedBox2 = document.getElementById("rightSlantedBox2");
+    var rightSlantedBoxStyles = window.getComputedStyle
+      ? getComputedStyle(rightSlantedBox2, null)
+      : rightSlantedBox2.currentStyle;
+    var rightSlantedBoxHeight = rightSlantedBoxStyles.height;
+    var rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
+    var clipPathAlgorithm =
+      "polygon(0 0, 100% 40px, 100% 100%, 0 " +
+      (rightSlantedBoxParsedHeightValue - 40) +
+      "px)";
 
-  // Right Slanted Box
+    rightSlantedBox2.style.clipPath = clipPathAlgorithm;
+    rightSlantedBox2.style.position = "initial";
+    rightSlantedBox2.style.marginBottom = "-7vh";
+    rightSlantedBox2.style.marginTop = "-7vh";
 
-  var rightSlantedBox2 = document.getElementById("rightSlantedBox2");
-  var rightSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(rightSlantedBox2, null) : rightSlantedBox2.currentStyle;
-  var rightSlantedBoxHeight = rightSlantedBoxStyles.height;
-  var rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
-  var clipPathAlgorithm = "polygon(0 0, 100% 40px, 100% 100%, 0 " + (rightSlantedBoxParsedHeightValue - 40) + "px)";
-  
-  rightSlantedBox2.style.clipPath = (clipPathAlgorithm);
-  rightSlantedBox2.style.position = "initial";
-  rightSlantedBox2.style.marginBottom = "-7vh";
-  rightSlantedBox2.style.marginTop = "-7vh";
-  
-  
-  window.addEventListener("resize",function(){ rightSlantedBox2 = document.getElementById("rightSlantedBox2"); })
+    window.addEventListener("resize", function() {
+      rightSlantedBox2 = document.getElementById("rightSlantedBox2");
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxStyles = window.getComputedStyle ? getComputedStyle(rightSlantedBox2, null) : rightSlantedBox2.currentStyle; })
+    window.addEventListener("resize", function() {
+      rightSlantedBoxStyles = window.getComputedStyle
+        ? getComputedStyle(rightSlantedBox2, null)
+        : rightSlantedBox2.currentStyle;
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxHeight = rightSlantedBoxStyles.height; })
+    window.addEventListener("resize", function() {
+      rightSlantedBoxHeight = rightSlantedBoxStyles.height;
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight); })
+    window.addEventListener("resize", function() {
+      rightSlantedBoxParsedHeightValue = parseInt(rightSlantedBoxHeight);
+    });
 
-  window.addEventListener("resize",function(){ rightSlantedBox2.style.clipPath = "polygon(0 0, 100% 40px, 100% 100%, 0 " + (rightSlantedBoxParsedHeightValue - 40) + "px)"; })
-
-</script>
-     
-</html>                                                                        
+    window.addEventListener("resize", function() {
+      rightSlantedBox2.style.clipPath =
+        "polygon(0 0, 100% 40px, 100% 100%, 0 " +
+        (rightSlantedBoxParsedHeightValue - 40) +
+        "px)";
+    });
+  </script>
+</html>
