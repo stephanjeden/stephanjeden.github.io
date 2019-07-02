@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.js"></script>
+
     <style>
     
     * {
@@ -17,18 +19,30 @@
     </style>
 </head>
 <body id="theBody">
-    <canvas id="theCanvas" width="100vw" height="100vh"></canvas>
+    <canvas id="theCanvas" width="3000" height="900"></canvas>
 </body>
 
 <script>
+
+const prettyColors = randomColor();
 
 const createBeauty = document.getElementById("theCanvas").getContext("2d");
 // const thisSetstheGetContextMethodToConstBeginBeauty = beginBeauty.getContext("2d");
 const ctx = createBeauty;
 
-ctx.
+ctx.beginPath();
+ctx.arc(500, 500, 75, 0, .5 * Math.PI);
+ctx.fillStyle = prettyColors;
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(575.5, 575.5, 75, 1 * Math.PI, 1.5 * Math.PI);
+ctx.fillStyle = prettyColors;
+ctx.fill();
+
+console.log(prettyColors);
 
 </script>
 
 
-</html>
+</html>       
