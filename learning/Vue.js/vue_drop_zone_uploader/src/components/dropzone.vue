@@ -108,7 +108,6 @@ export default {
     */
               this.submitFiles();
             } else {
-              console.log("Whoops, wrong file type.");
 
               /* Update variables to ensure the user sees the correct message if they upload a second file without reloading the page first. */
               this.incorrectFileType = true;
@@ -161,9 +160,9 @@ export default {
       completedMessage.classList.remove("hideCompletedMessage");
     }
 
-    dropZoneForm.addEventListener("dragLeave", dropAndLeaveAnimationFunction);
+    dropZoneForm.addEventListener("dragLeave", dragLeaveAnimationFunction);
 
-    function dropAndLeaveAnimationFunction() {
+    function dragLeaveAnimationFunction() {
       dropZoneBGConst.classList.remove("blueBoxAnimations");
       dropFilesConst.classList.remove("hideDropFiles");
       this.classList.remove("formAnimations");
@@ -178,7 +177,6 @@ export default {
     window
     */
     determineDragAndDropCapable() {
-      console.log("drag n drop?");
       /*
     Create a test element to see if certain events
     are present that let us do drag and drop.
@@ -241,12 +239,10 @@ export default {
           }.bind(this)
         })
         .then(function() {
-          console.log("SUCCESS!!");
           submitFilesAlias.uploadMessage = "All done. Yum!";
           submitFilesAlias.uploadCompleted = true;
         })
         .catch(function() {
-          console.log("FAILURE!!");
           submitFilesAlias.uploadCompleted = true;
         });
     }
