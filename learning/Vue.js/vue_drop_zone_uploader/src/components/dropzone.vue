@@ -228,7 +228,7 @@ export default {
     Make the request to the POST /file-drag-drop URL
     */
       axios
-        .post("http://mockbin.com/request?foo=bar&foo=bax", formData, {
+        .post("https://vuedraganddropper.free.beeceptor.com/my/api/path", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           },
