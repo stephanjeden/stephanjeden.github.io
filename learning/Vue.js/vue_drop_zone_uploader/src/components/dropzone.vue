@@ -1,37 +1,56 @@
-
-
 <template>
   <div id="file-drag-drop">
     <div id="blueBox" class="blueBoxNormalAppearance">
-      <form id="dropFormID" class ref="fileform">
+      <form id="dropFormID" ref="fileform">
+       
         <span
           id="dropFiles"
           class="dropFiles"
           v-show="uploadPercentage == 0 && incorrectFileType != true"
-        >Drag and drop your CSV file here to upload it.</span>
-        <span class v-show="incorrectFileType == true">Whoops! I can only eat CSV files!</span>
+          >Drag your CSV file here.
+        </span>
+
+        <span id="incorrectFile" class="showIncorrectFile" v-show="incorrectFileType == true">Whoops! I can only eat CSV files!</span>
+        
+        <span v-show="errorMessage">{{ errorMessage }}</span>
+        
         <span
           class="dropFiles munching"
           v-show="uploadPercentage > 0 && uploadCompleted != true"
-        >Munching...</span>
+          >Munching...
+        </span>
+
         <span
           id="completedMessage"
-          class
+          class=" "
           v-show="uploadPercentage > 99 && uploadCompleted == true"
-        >{{uploadMessage}}</span>
+          >{{uploadMessage}}
+        </span>
+        
         <img id="dropIcon" class="dropIconHidden" src="../assets/dropicon.png" height="90vh" />
+        
       </form>
+
+      <div id="dragTarget" ref="dropTarget"> 
+
+      </div>
+      
     </div>
 
+    <label id="inputButtonLabel" for="inputButton">Or <strong>choose it</strong> here.
+      <input id="inputButton" type="file" ref="buttonFileSelector" v-on:change="buttonFileSelectorFunction()"/>
+    </label>
+  
     <progress
       max="100"
       :value.prop="uploadPercentage"
-      v-show="uploadPercentage > 0 && uploadPercentage < 100"
-    ></progress>
+      v-show="uploadPercentage > 0 && uploadPercentage < 100">
+    </progress>
   </div>
 </template>
 
 <script>
+
 import axios from "axios";
 
 export default {
@@ -39,9 +58,11 @@ export default {
   data() {
     return {
       dragAndDropCapable: false,
-      files: [],
+      file: null,
+      lines: [],
       uploadPercentage: 0,
       uploadMessage: "",
+      errorMessage: null,
       uploadCompleted: false,
       incorrectFileType: undefined
     };
@@ -60,7 +81,7 @@ export default {
       /*
       Listen to all of the drag events and bind an event listener to each
       for the fileform.
-    */
+      */
       [
         "drag",
         "dragstart",
@@ -69,54 +90,21 @@ export default {
         "dragenter",
         "dragleave",
         "drop"
-      ].forEach(
-        function(evt) {
-          /*
+      ].forEach( evt => 
+        /*
         For each event add an event listener that prevents the default action
         (opening the file in the browser) and stop the propagation of the event (so
         no other elements open the file in the browser)
-      */
-          this.$refs.fileform.addEventListener(
-            evt,
-            function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-            }.bind(this),
-            false
-          );
-        }.bind(this)
+        */  
+        this.$refs.dropTarget.addEventListener(
+          evt, e => {e.preventDefault(); e.stopPropagation();}, false
+        ),
       );
 
       /*
-    Add an event listener for drop to the form
-    */
-      this.$refs.fileform.addEventListener(
-        "drop",
-        function(e) {
-          /*
-    Capture the files from the drop event and add them to our local files
-    array.
-    */
-          for (let i = 0; i < e.dataTransfer.files.length; i++) {
-            /* Validate the file type to make sure only CSV files are uploaded. */
-            if (e.dataTransfer.files[i].name.match(/.csv||.CSV/g) != null) {
-              this.incorrectFileType = false;
-              this.files.push(e.dataTransfer.files[i]);
-
-              /*
-    Instantly upload files
-    */
-              this.submitFiles();
-            } else {
-
-              /* Update variables to ensure the user sees the correct message if they upload a second file without reloading the page first. */
-              this.incorrectFileType = true;
-              this.uploadCompleted = false;
-              this.uploadPercentage = 0;
-            }
-          }
-        }.bind(this)
-      );
+      Add an event listener for drop to the form
+      */
+      this.$refs.dropTarget.addEventListener("drop", this.handleFileDrop);
     }
 
     /* 
@@ -127,6 +115,8 @@ export default {
 
     */
 
+    /* Stop default behavior of drag and drop over windown element. */
+
     window.addEventListener("drop", stopDefaultBehaviorOfDragOnWindow);
     window.addEventListener("dragover", stopDefaultBehaviorOfDragOnWindow);
 
@@ -134,41 +124,50 @@ export default {
       e.preventDefault();
     }
 
+    /* Animate the drop zone! */
+
     const dropZoneBGConst = document.getElementById("blueBox");
     const dropZoneForm = document.getElementById("dropFormID");
     const dropFilesConst = document.getElementById("dropFiles");
     const dropIconConst = document.getElementById("dropIcon");
     const completedMessage = document.getElementById("completedMessage");
+    const incorrectFile = document.getElementById('incorrectFile');
+    const dragTarget = document.getElementById("dragTarget");
 
-    dropZoneBGConst.addEventListener("dragenter", dragEnterAnimationsFunction);
+    dragTarget.addEventListener("dragenter", dragEnterAnimationsFunction);
+
 
     function dragEnterAnimationsFunction() {
-      this.classList.toggle("blueBoxAnimations");
-      dropZoneForm.classList.toggle("formAnimations");
-      dropFilesConst.classList.toggle("hideDropFiles");
-      dropIconConst.classList.toggle("unhideDropIcon");
+      dropZoneBGConst.classList.add("blueBoxAnimations");
+      dropZoneForm.classList.add("formAnimations");
+      dropFilesConst.classList.add("hideDropFiles");
+      dropIconConst.classList.add("unhideDropIcon");
       completedMessage.classList.add("hideCompletedMessage");
+      incorrectFile.classList.add('hideIncorrectFile');
     }
 
-    dropZoneForm.addEventListener("drop", dropAndLeaveAnimationFunction);
+    dragTarget.addEventListener("drop", dropAndLeaveAnimationFunction);
 
     function dropAndLeaveAnimationFunction() {
       dropZoneBGConst.classList.remove("blueBoxAnimations");
       dropFilesConst.classList.remove("hideDropFiles");
-      this.classList.remove("formAnimations");
+      dropZoneForm.classList.remove("formAnimations");
       dropIconConst.classList.remove("unhideDropIcon");
       completedMessage.classList.remove("hideCompletedMessage");
+      incorrectFile.classList.remove('hideIncorrectFile');
     }
 
-    dropZoneForm.addEventListener("dragLeave", dragLeaveAnimationFunction);
+    dragTarget.addEventListener("dragleave", dragLeaveAnimationFunction);
 
     function dragLeaveAnimationFunction() {
       dropZoneBGConst.classList.remove("blueBoxAnimations");
       dropFilesConst.classList.remove("hideDropFiles");
-      this.classList.remove("formAnimations");
+      dropZoneForm.classList.remove("formAnimations");
       dropIconConst.classList.remove("unhideDropIcon");
       completedMessage.classList.remove("hideCompletedMessage");
+      incorrectFile.classList.remove('hideIncorrectFile');
     }
+
   },
 
   methods: {
@@ -177,20 +176,21 @@ export default {
     window
     */
     determineDragAndDropCapable() {
+      console.log("drag n drop?");
       /*
-    Create a test element to see if certain events
-    are present that let us do drag and drop.
-    */
-      var div = document.createElement("div");
+      Create a test element to see if certain events
+      are present that let us do drag and drop.
+      */
+      const div = document.createElement("div");
 
       /*
-    Check to see if the `draggable` event is in the element
-    or the `ondragstart` and `ondrop` events are in the element. If
-    they are, then we have what we need for dragging and dropping files.
+      Check to see if the `draggable` event is in the element
+      or the `ondragstart` and `ondrop` events are in the element. If
+      they are, then we have what we need for dragging and dropping files.
+      We also check to see if the window has `FormData` and `FileReader` objects
+      present so we can do our AJAX uploading.
+      */
 
-    We also check to see if the window has `FormData` and `FileReader` objects
-    present so we can do our AJAX uploading
-    */
       return (
         ("draggable" in div || ("ondragstart" in div && "ondrop" in div)) &&
         "FormData" in window &&
@@ -198,59 +198,110 @@ export default {
       );
     },
 
+    buttonFileSelectorFunction() {
+      this.resetMessageState();
+      this.handleFileSelection(this.$refs.buttonFileSelector.files[0]);
+    },
+
+    displayCsvContents() {
+      /* Create new FileReader method instance. */
+      const csvFileReader = new FileReader();
+
+      for (const individualFile of this.files) {
+        csvFileReader.readAsText(this.files[individualFile]);
+        csvFileReader.onload = processData;
+        function processData(event) {
+          let allTextLines = event.target.result.split(/\r\n|\n/);
+          for (const individualLine of allTextLines) {
+            let dataInLine = allTextLines[individualLine].split(';');
+            let lineDataStorageArray = [];
+          }
+
+        }
+      }
+    },
+
+    resetMessageState() {
+      this.errorMessage = null;
+      this.uploadCompleted = false;
+      this.uploadPercentage = 0;      
+    },
+
+    handleFileDrop(dropEvent) {
+      /*
+      Capture the files from the drop event and add them to our local files
+      array.
+      */
+      this.resetMessageState();
+
+      if (dropEvent.dataTransfer.files.length > 1) {
+        this.errorMessage = "one file only";
+        return;
+      }
+
+      this.handleFileSelection(dropEvent.dataTransfer.files[0]);
+    },
+
+    handleFileSelection(file) {
+      if (!file.name.match(/\.csv$/)) {
+        this.errorMessage = "use a CSV";
+        return;
+      }
+      this.file = file;
+      this.submitFiles();
+    },
+
     /*
     Submits the files to the server
     */
     submitFiles() {
-      /* Provide context for this (used for upload completion messages below) */
-      let submitFilesAlias = this;
-
-      /* Reset values of uploadCompleted and uploadPercentage so that the user see the correct messages if they upload a second file without reloading the page. */
-      this.uploadCompleted = false;
-      this.uploadPercentage = 0;
-
       /*
-    Initialize the form data
-    */
+      Initialize the form data
+      */
       let formData = new FormData();
 
       /*
-    Iteate over any file sent over appending the files
-    to the form data.
-    */
-      for (var i = 0; i < this.files.length; i++) {
-        let file = this.files[i];
+      Iteate over any file sent over appending the files
+      to the form data.
+      */
+     
 
-        formData.append("files[" + i + "]", file);
-      }
+      formData.append("file", this.file);
+      
 
       /*
-    Make the request to the POST /file-drag-drop URL
-    */
-      axios
-        .post("https://vuedraganddropper.free.beeceptor.com/my/api/path", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          },
-          onUploadProgress: function(progressEvent) {
-            this.uploadPercentage = parseInt(
-              Math.round((progressEvent.loaded * 100) / progressEvent.total)
-            );
-          }.bind(this)
-        })
-        .then(function() {
-          submitFilesAlias.uploadMessage = "All done. Yum!";
-          submitFilesAlias.uploadCompleted = true;
-        })
-        .catch(function() {
-          submitFilesAlias.uploadCompleted = true;
-        });
+      Make the request to the POST /file-drag-drop URL
+      */
+      axios.post("https://vuedraganddropper.free.beeceptor.com/my/api/path", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        },
+        onUploadProgress: progressEvent => this.uploadPercentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+      })
+      .then(() => {
+        console.log("SUCCESS!!");
+        this.uploadMessage = "All done. Yum!";
+        this.uploadCompleted = true;
+      })
+      .catch(() => {
+        console.log("FAILURE!!");
+        this.uploadCompleted = true;
+      });
     }
   }
 };
 </script>
 
+
+
 <style>
+
+#file-drag-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .blueBoxNormalAppearance {
   transition: all 0.3s ease-in;
   background: #0483e5;
@@ -274,7 +325,8 @@ export default {
   padding-bottom: 5vh;
 }
 
-.dropFiles {
+.dropFiles, 
+.showIncorrectFile {
   transition: all 0.3s ease-in;
   display: block;
   opacity: 1;
@@ -282,7 +334,8 @@ export default {
 
 .hideDropFiles,
 .dropIconHidden,
-.hideCompletedMessage {
+.hideCompletedMessage, 
+.hideIncorrectFile {
   display: block;
   position: absolute;
 
@@ -349,6 +402,29 @@ form {
   border: 15px dotted #9bcb43a1;
   height: 44vh;
   width: 50vw;
+}
+
+#dragTarget {
+  height: 47vh;
+  width: 50vw;
+  opacity: 0;
+  position: absolute;
+}
+
+#inputButton {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#inputButtonLabel {
+color: #0483e5;
+margin-top: 15px;
+font-size: 1.6vw;
+cursor: pointer;
 }
 
 div.file-listing {

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <dropzone v-bind:dropzone="whatever" /> 
+  <dropzone v-bind:dropzone="dropzone" /> 
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
 
   data() {
     return {
-      whatever: {}
+      dropzone: {}
     }
   }
 }
@@ -25,7 +25,6 @@ export default {
 
 <style>
 
-@import url('https://fonts.googleapis.com/css?family=Oswald:200,400&display=swap');
 
 * {
   margin: 0;
