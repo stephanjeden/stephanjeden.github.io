@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "jquery": "^3.4.1",
+    "skeleton-css": "^2.0.4",
     "vue": "^2.6.10"
   },
   "devDependencies": {

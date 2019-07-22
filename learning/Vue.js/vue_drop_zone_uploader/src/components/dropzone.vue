@@ -1,43 +1,17 @@
 <template>
   <div id="file-drag-drop">
     <div id="blueBox" class="blueBoxNormalAppearance">
+      
       <form id="dropFormID" ref="fileform">
-       
-        <span
-          id="dropFiles"
-          class="dropFiles"
-          v-show="uploadPercentage == 0 && incorrectFileType != true"
-          >Drag your CSV file here.
-        </span>
-
-        <span id="incorrectFile" class="showIncorrectFile" v-show="incorrectFileType == true">Whoops! I can only eat CSV files!</span>
-        
-        <span v-show="errorMessage">{{ errorMessage }}</span>
-        
-        <span
-          class="dropFiles munching"
-          v-show="uploadPercentage > 0 && uploadCompleted != true"
-          >Munching...
-        </span>
-
-        <span
-          id="completedMessage"
-          class=" "
-          v-show="uploadPercentage > 99 && uploadCompleted == true"
-          >{{uploadMessage}}
-        </span>
-        
-        <img id="dropIcon" class="dropIconHidden" src="../assets/dropicon.png" height="90vh" />
-        
+        <span id="userMessage" class="showUserMessage" >{{ userMessage }}</span>
+        <img id="dropIcon" class="dropIconHidden" src="../assets/dropicon.png" height="90vh" />       
       </form>
 
-      <div id="dragTarget" ref="dropTarget"> 
-
-      </div>
+      <div id="dragTarget" ref="dropTarget"> </div>
       
     </div>
 
-    <label id="inputButtonLabel" for="inputButton">Or <strong>choose it</strong> here.
+    <label id="buttonFileSelectorLabel" for="inputButton">Or <strong>choose it</strong> here.
       <input id="inputButton" type="file" ref="buttonFileSelector" v-on:change="buttonFileSelectorFunction()"/>
     </label>
   
@@ -46,12 +20,20 @@
       :value.prop="uploadPercentage"
       v-show="uploadPercentage > 0 && uploadPercentage < 100">
     </progress>
+
+    <div id="displayContactsDiv" class="u-full-width" v-show="userMessage == 'All done. Yum!'" >
+
+    
+ 
+  </div>
   </div>
 </template>
 
 <script>
 
 import axios from "axios";
+import jquery from "jquery";
+import '../../node_modules/skeleton-css/css/skeleton.css';
 
 export default {
   /* These are the variables we'll use for the drag and drop component. */
@@ -59,12 +41,10 @@ export default {
     return {
       dragAndDropCapable: false,
       file: null,
-      lines: [],
+      lines: ``,
       uploadPercentage: 0,
       uploadMessage: "",
-      errorMessage: null,
-      uploadCompleted: false,
-      incorrectFileType: undefined
+      userMessage: "Drop your CSV file here.",
     };
   },
 
@@ -123,54 +103,74 @@ export default {
     function stopDefaultBehaviorOfDragOnWindow(e) {
       e.preventDefault();
     }
-
-    /* Animate the drop zone! */
-
-    const dropZoneBGConst = document.getElementById("blueBox");
-    const dropZoneForm = document.getElementById("dropFormID");
-    const dropFilesConst = document.getElementById("dropFiles");
-    const dropIconConst = document.getElementById("dropIcon");
-    const completedMessage = document.getElementById("completedMessage");
-    const incorrectFile = document.getElementById('incorrectFile');
-    const dragTarget = document.getElementById("dragTarget");
-
-    dragTarget.addEventListener("dragenter", dragEnterAnimationsFunction);
-
-
-    function dragEnterAnimationsFunction() {
-      dropZoneBGConst.classList.add("blueBoxAnimations");
-      dropZoneForm.classList.add("formAnimations");
-      dropFilesConst.classList.add("hideDropFiles");
-      dropIconConst.classList.add("unhideDropIcon");
-      completedMessage.classList.add("hideCompletedMessage");
-      incorrectFile.classList.add('hideIncorrectFile');
-    }
-
-    dragTarget.addEventListener("drop", dropAndLeaveAnimationFunction);
-
-    function dropAndLeaveAnimationFunction() {
-      dropZoneBGConst.classList.remove("blueBoxAnimations");
-      dropFilesConst.classList.remove("hideDropFiles");
-      dropZoneForm.classList.remove("formAnimations");
-      dropIconConst.classList.remove("unhideDropIcon");
-      completedMessage.classList.remove("hideCompletedMessage");
-      incorrectFile.classList.remove('hideIncorrectFile');
-    }
-
-    dragTarget.addEventListener("dragleave", dragLeaveAnimationFunction);
-
-    function dragLeaveAnimationFunction() {
-      dropZoneBGConst.classList.remove("blueBoxAnimations");
-      dropFilesConst.classList.remove("hideDropFiles");
-      dropZoneForm.classList.remove("formAnimations");
-      dropIconConst.classList.remove("unhideDropIcon");
-      completedMessage.classList.remove("hideCompletedMessage");
-      incorrectFile.classList.remove('hideIncorrectFile');
-    }
+    
+    this.dropZoneHoverAnimation();
 
   },
 
   methods: {
+
+    handleFileDrop(dropEvent) {
+      /*
+      Capture the files from the drop event and add them to our local files
+      array.
+      */
+
+
+      if (dropEvent.dataTransfer.files.length > 1) {
+        this.userMessage = "Please upload one file at a time.";
+        return;
+      }
+
+      this.handleFileSelection(dropEvent.dataTransfer.files[0]);
+    },
+
+    handleFileSelection(file) {
+       if (!file.name.match(/\.csv$/i)) {
+         this.userMessage = "Whoops! I can only eat CSV files!";
+         return;
+       }
+      this.file = file;
+      this.submitFiles();
+    },
+
+
+    dropZoneHoverAnimation() {
+    
+      const dropZoneBGConst = document.getElementById("blueBox");
+      const dropZoneForm = document.getElementById("dropFormID");
+      const userMessage = document.getElementById("userMessage");
+      const dropIconConst = document.getElementById("dropIcon");
+      const dragTarget = document.getElementById("dragTarget");
+
+      dragTarget.addEventListener("dragenter", startDragAnimation);
+      dragTarget.addEventListener("drop", stopDragAnimation);
+      dragTarget.addEventListener("dragleave", stopDragAnimation);
+
+      function startDragAnimation() {
+        dropZoneBGConst.classList.add("blueBoxAnimations");
+        dropZoneForm.classList.add("formAnimations");
+        dropIconConst.classList.add("unhideDropIcon");
+        userMessage.classList.add("hideUserMessage");
+      }
+
+
+      function stopDragAnimation() {
+        dropZoneBGConst.classList.remove("blueBoxAnimations");
+        dropZoneForm.classList.remove("formAnimations");
+        dropIconConst.classList.remove("unhideDropIcon");
+        userMessage.classList.remove("hideUserMessage");
+      }
+    },
+
+    startUploadingAnimation() {
+      userMessage.classList.add("munching");
+    },
+
+    endUploadingAnimation() {
+      userMessage.classList.remove("munching");
+    },
+
     /*
     Determines if the drag and drop functionality is in the
     window
@@ -199,62 +199,47 @@ export default {
     },
 
     buttonFileSelectorFunction() {
-      this.resetMessageState();
       this.handleFileSelection(this.$refs.buttonFileSelector.files[0]);
     },
 
     displayCsvContents() {
       /* Create new FileReader method instance. */
+      const linesAlias = this.lines;
+      let localLinesVar = `<h1>Your Contacts:</h1><table class='u-full-width' id='contactsTable'>`;
       const csvFileReader = new FileReader();
+      csvFileReader.readAsText(this.file);
+      csvFileReader.onload = processData;
 
-      for (const individualFile of this.files) {
-        csvFileReader.readAsText(this.files[individualFile]);
-        csvFileReader.onload = processData;
-        function processData(event) {
-          let allTextLines = event.target.result.split(/\r\n|\n/);
-          for (const individualLine of allTextLines) {
-            let dataInLine = allTextLines[individualLine].split(';');
-            let lineDataStorageArray = [];
+      function processData(processedFile) {
+        let allTextLines = processedFile.target.result.split(/\r\n|\n/);
+        for (const individualLine of allTextLines) {
+          let dataInLine = individualLine.split(',');
+          if (localLinesVar == "<h1>Your Contacts:</h1><table class='u-full-width' id='contactsTable'>") {
+            localLinesVar += "<thead> <tr>";
+
+            for (const aSingleValue of dataInLine) {
+              localLinesVar += `<th>${aSingleValue}</th>`;
+            }
+            localLinesVar += "</tr> </thead><tbody> <tr>";
+          } else {
+            localLinesVar += "<tr>";
+            for (const aSingleValue of dataInLine) {
+              localLinesVar += `<td>${aSingleValue}</td>`;
+            }
+            localLinesVar += "</tr>";
           }
-
         }
+        localLinesVar += "</tr></tbody></table>";
+        document.getElementById('displayContactsDiv').innerHTML = `${localLinesVar}`;
       }
     },
+    
 
-    resetMessageState() {
-      this.errorMessage = null;
-      this.uploadCompleted = false;
-      this.uploadPercentage = 0;      
-    },
-
-    handleFileDrop(dropEvent) {
-      /*
-      Capture the files from the drop event and add them to our local files
-      array.
-      */
-      this.resetMessageState();
-
-      if (dropEvent.dataTransfer.files.length > 1) {
-        this.errorMessage = "one file only";
-        return;
-      }
-
-      this.handleFileSelection(dropEvent.dataTransfer.files[0]);
-    },
-
-    handleFileSelection(file) {
-      if (!file.name.match(/\.csv$/)) {
-        this.errorMessage = "use a CSV";
-        return;
-      }
-      this.file = file;
-      this.submitFiles();
-    },
-
-    /*
-    Submits the files to the server
-    */
     submitFiles() {
+
+      this.startUploadingAnimation();
+
+      this.userMessage = "Munching..."
       /*
       Initialize the form data
       */
@@ -280,12 +265,16 @@ export default {
       })
       .then(() => {
         console.log("SUCCESS!!");
-        this.uploadMessage = "All done. Yum!";
+        this.userMessage = "All done. Yum!";
         this.uploadCompleted = true;
+        this.endUploadingAnimation();
+        this.displayCsvContents();
       })
       .catch(() => {
         console.log("FAILURE!!");
+        this.userMessage = "Uh-oh, that didn't work. Try again?";
         this.uploadCompleted = true;
+        this.endUploadingAnimation();
       });
     }
   }
@@ -325,20 +314,20 @@ export default {
   padding-bottom: 5vh;
 }
 
-.dropFiles, 
-.showIncorrectFile {
+#userMessage {
+  font-size: 2vmin;
+}
+
+.showUserMessage {
   transition: all 0.3s ease-in;
   display: block;
   opacity: 1;
 }
 
-.hideDropFiles,
-.dropIconHidden,
-.hideCompletedMessage, 
-.hideIncorrectFile {
+.hideUserMessage,
+.dropIconHidden {
   display: block;
   position: absolute;
-
   opacity: 0;
   transition: all 0.3s ease-in;
 }
@@ -355,7 +344,7 @@ export default {
     font-size: inherit;
   }
   50% {
-    font-size: 1.1em;
+    font-size: 1.07em;
   }
   100% {
     font-size: inherit;
@@ -396,6 +385,7 @@ form {
   border: 10px dotted #9bcb43;
   align-self: center;
   transition: all 0.3s ease-in;
+  margin-bottom: 0;
 }
 
 .formAnimations {
@@ -420,45 +410,15 @@ form {
 	z-index: -1;
 }
 
-#inputButtonLabel {
+#buttonFileSelectorLabel {
 color: #0483e5;
 margin-top: 15px;
 font-size: 1.6vw;
 cursor: pointer;
+font-weight: 100;
+font-size: 2vmin;
 }
 
-div.file-listing {
-  width: 400px;
-  margin: auto;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-div.file-listing img {
-  height: 100px;
-}
-
-div.remove-container {
-  text-align: center;
-}
-
-div.remove-container a {
-  color: red;
-  cursor: pointer;
-}
-
-a.submit-button {
-  display: block;
-  margin: auto;
-  text-align: center;
-  width: 200px;
-  padding: 10px;
-  text-transform: uppercase;
-  background-color: #ccc;
-  color: white;
-  font-weight: bold;
-  margin-top: 20px;
-}
 
 progress {
   width: 400px;
@@ -477,4 +437,32 @@ progress {
   background-repeat: no-repeat;
   position: absolute;
 }
+
+#displayContactsDiv h1 {
+  font-size: 2.2em;
+  margin-top: 33px;
+  color: #0483e5;
+}
+
+#displayContactsDiv {
+  margin: 2vw;
+  background: #f4f4f4;
+  padding: 0 20px 0 20px;
+  color: rgb(124, 124, 124);
+}
+
+
+#contactsTable {
+  border-collapse: collapse;
+  font-size: 2vmin;
+}
+
+#contactsTable thead {
+  color: #0483e5;
+}
+
+#contactsTable tbody tr:nth-child(even) {
+  font-weight: 400;
+}
+ 
 </style>
