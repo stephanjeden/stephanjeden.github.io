@@ -25,7 +25,7 @@
 <script>
 
 import axios from "axios";
-import '../../node_modules/skeleton-css/css/skeleton.css';
+import '../../node_modules/skeleton-css/css/skeleton.css'; 
 
 export default {
   data() {
@@ -57,12 +57,10 @@ export default {
         
       , false));
 
-      window.addEventListener("drop", stopDefaultBehaviorOfDragOnWindow);
-      window.addEventListener("dragover", stopDefaultBehaviorOfDragOnWindow);
+      window.addEventListener("drop", this.stopDefaultBehaviorOfDragOnWindow);
+      window.addEventListener("dragover", this.stopDefaultBehaviorOfDragOnWindow);
 
-      function stopDefaultBehaviorOfDragOnWindow(e) {
-      e.preventDefault();
-      }
+
 
       this.$refs.dropTargetDiv.addEventListener("drop", this.handleFileDrop);
 
@@ -71,7 +69,11 @@ export default {
 
   },
 
-  methods: {
+  methods: { 
+
+    stopDefaultBehaviorOfDragOnWindow(e) {
+      e.preventDefault();
+    },
 
     handleFileDrop(dropEvent) {
 
@@ -182,7 +184,7 @@ export default {
       /*
       Make the request to the POST /file-drag-drop URL
       */
-      axios.post("https://postman-echo.com/get?foo1=bar1&foo2=bar2", formData, {
+      axios.post("https://vuedraganddropper.proxy.beeceptor.com", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         },
