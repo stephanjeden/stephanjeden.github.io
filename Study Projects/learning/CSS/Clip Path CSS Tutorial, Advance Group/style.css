@@ -21,7 +21,7 @@ header {
     background-size: cover;
     background-position: bottom;
     /* clip-path: polygon(50% 0, 50% 0, 100% 100%, 0 100%); */
-    clip-path: polygon(0 200px, 100% 500px, 100% 1000px, 0 1300px)
+    /*clip-path: polygon(0 200px, 100% 500px, 100% 1000px, 0 1300px)*/
 }
 
 header h1 {
